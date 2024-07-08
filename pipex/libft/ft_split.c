@@ -1,0 +1,136 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/16 11:50:46 by yzheng            #+#    #+#             */
+/*   Updated: 2024/07/04 20:02:18 by yzheng           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+static	char	*ftstrndup(const char *src, int n)
+{
+	char	*dest;
+	int		i;
+
+	if (!src)
+		return (NULL);
+	dest = malloc(n + 1);
+	if (dest == NULL)
+		return (NULL);
+	i = 0;
+	while (i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[n] = '\0';
+	return (dest);
+}
+
+static	int	countstring(char *str, char charset)
+{
+	int	i;
+	int	count;
+	int	isprevsep;
+
+	i = 0;
+	count = 0;
+	isprevsep = 1;
+	while (str[i])
+	{
+		if (str[i] == charset)
+		{
+			isprevsep = 1;
+		}
+		else if (isprevsep)
+		{
+			count++;
+			isprevsep = 0;
+		}
+		i++;
+	}
+	return (count);
+}
+
+static	void	free_result(char **result, int j)
+{
+	while (j--)
+		free(result[j]);
+	free(result);
+}
+
+static	int	sp(char	**result, char *str, char charset, int j)
+{
+	int		start;
+	int		i;
+
+	i = 0;
+	start = 0;
+	if (result == NULL || str == NULL)
+		return (-1);
+	while (str[i])
+	{
+		if ((str[i] != charset) && (i == 0 || str[i - 1] == charset))
+			start = i;
+		if (str[i] != charset && (str[i + 1] == '\0' || str[i + 1] == charset))
+		{
+			result[j] = ftstrndup(str + start, i - start + 1);
+			if (!result[j])
+			{
+				free_result(result, j);
+				return (0);
+			}
+			j++;
+		}
+		i++;
+	}
+	result[j] = NULL;
+	return (1);
+}
+
+char	**ft_split(char *str, char charset)
+{
+	char	**result;
+	int		size;
+
+	if (!str)
+		return (NULL);
+	size = countstring(str, charset);
+	result = malloc((size + 1) * sizeof(char *));
+	if (result == NULL)
+		return (NULL);
+	if (sp(result, str, charset, 0))
+		return (result);
+	else
+		return (NULL);
+}
+/*
+#include <stdio.h>
+int main() {
+    char test_str[] = "hello!";
+    char charset= ' ';
+
+    // 调用 ft_split 函数得到结果
+    char **result = ft_split(test_str, charset);
+    if (result == NULL) {
+        printf("Memory allocation failed.\n");
+        return 1;
+    }
+
+    // 循环打印每个分割后的字符串
+    for (int i = 0; result[i] != NULL; i++) {
+        printf("%s\n", result[i]);
+    }
+
+    // 释放 ft_split 返回的结果内存
+    for (int i = 0; result[i] != NULL; i++) {
+        free(result[i]);
+    }
+    free(result);
+
+    return 0;
+}*/

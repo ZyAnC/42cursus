@@ -6,12 +6,13 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 08:17:24 by yzheng            #+#    #+#             */
-/*   Updated: 2024/07/04 21:59:44 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:19:08 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
-#include "./libft/libft.h"
+#include "./pipex.h"
+#include "./sources/libft/libft.h"
+
 int	open_file(char *file, int in_or_out)
 {
 	int	ret;
@@ -29,6 +30,7 @@ typedef struct ppst
     int pipefd[2];
     pid_t pid ;
 }ppt;
+
 void errorexit(const char *mess)
 {
     perror(mess);
@@ -106,12 +108,13 @@ static inline void exec(char *cmd, char **env)
     
     shellcmd = ft_split(cmd,' ');
     path = findvalidcmd(shellcmd, env);
-     printf("%s",path);
+    printf("%s\n",path);
     int i = 0;
+
     while(shellcmd[i])
         printf("%s",shellcmd[i++]);
-// execve(path, shellcmd, env);
-   // errorexit("execve");
+    execve(path, shellcmd, env);
+    errorexit("execve");
 }
 void	child(char **av, int *p_fd, char **env)
 {
@@ -138,10 +141,7 @@ void	parents(char **av, int *p_fd, char **env)
 
 int main(int ac, char **av, char **env)
 {
-   
-  
-    
-   
+
     int		p_fd[2];
 	pid_t	pid;
     if (ac != 5)

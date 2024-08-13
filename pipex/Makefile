@@ -1,21 +1,25 @@
 
 NAME = pipex
 
-SRCS = ./pipex.c
-	
+SRCS = pipex.c \
+		ft_exec.c   \
+		ft_finder.c \
+
+B_SRCS = pipex_bonus.c \
+		 ft_exec.c   \
+		ft_finder.c \
+		pipex_bonus_utils.c
 
 
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I ./sources/libft
 
-DEPSFLAGS += -MMD -MP
+
 
 OFILES = ${SRCS:.c=.o}
 
-
-
-DEPS = ${SRCS:.c=.d}
+B_OFILES = ${B_SRCS:.c=.o}
 
 
 
@@ -28,28 +32,36 @@ mandatory : .mandatory
 .mandatory : ${OFILES}
 	${MAKE} -C ${LIBFT}
 	${CC} -o ${NAME} ${CFLAGS} ${OFILES} ${LIBFT}/libft.a
+	@touch .mandatory
+	@rm -f .bonus
 
+bonus : .bonus
 
+.bonus : ${B_OFILES}
+	${MAKE} -C ${LIBFT}
+	${CC} -o ${NAME} ${CFLAGS} ${B_OFILES} ${LIBFT}/libft.a
+	@touch .bonus
+	@rm -f .mandatory
 
 %.o: %.c
 	${CC} ${CFLAGS} ${DEPSFLAGS} -c -o $@ $<
 
--include ${DEPS}
+-include 
 
 clean :
-	rm -f ${OFILES} ${DEPS} 
+	rm -f ${OFILES}  ${B_OFILES} 
 	${MAKE} -C ${LIBFT} clean
-	@rm -f  .mandatory	
+	@rm -f .bonus .mandatory	
 
 fclean :
-	rm -f ${NAME} ${OFILES} ${DEPS} 
+	rm -f ${NAME} ${OFILES}  ${B_OFILES} 
 	${MAKE} -C ${LIBFT} fclean
-	@rm -f  .mandatory
+	@rm -f .bonus .mandatory
 
 re : fclean all
 
 redeps:
-	touch ${DEPS}
+	touch 
 	make
 	${MAKE} -C ${LIBFT} redeps
 

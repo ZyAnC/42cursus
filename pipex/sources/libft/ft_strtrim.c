@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzheng <yzheng@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 10:48:06 by yzheng            #+#    #+#             */
-/*   Updated: 2024/04/16 11:39:16 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/06 16:40:13 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,43 +50,4 @@ char	*ft_strtrim(char const *s1, char const *set)
 		s2[i++] = s1[start++];
 	s2[i] = '\0';
 	return (s2);
-}
-
-#include <stdio.h>
-int main() {
-    // 测试用例数据
-    struct {
-        char const *s1;
-        char const *set;
-    } test_cases[] = {
-        {"   Hello World   ", ""},
-        {"###Hello World###", "#"},
-        {"abcHello Worldcba", "acb"},
-        {"", " "},
-        {"   ", " "},
-        {NULL, " "}
-    };
-
-    // 测试用例名称
-    char const *test_names[] = {
-        "Test 1: Trimming spaces",
-        "Test 2: Trimming hash",
-        "Test 3: Trimming multiple characters",
-        "Test 4: Empty string",
-        "Test 5: Space only",
-        "Test 6: NULL string"
-    };
-
-    // 执行测试并打印结果
-    for (unsigned long i = 0;
-	i < sizeof(test_cases) / sizeof(test_cases[0]); i++) {
-        char *result = ft_strtrim(test_cases[i].s1, test_cases[i].set);
-        printf("%s\n", test_names[i]);
-        printf("Original: [%s], Set: [%s]\n",
-		test_cases[i].s1 ? test_cases[i].s1 : "NULL", test_cases[i].set);
-        printf("Result: [%s]\n\n", result ? result : "NULL");
-        free(result); // 释放由ft_strtrim分配的内存
-    }
-
-    return 0;
 }

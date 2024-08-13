@@ -3,33 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzheng <yzheng@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:50:46 by yzheng            #+#    #+#             */
-/*   Updated: 2024/04/16 12:20:52 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/06 17:34:26 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-static	char	*ftstrndup(const char *src, int n)
-{
-	char	*dest;
-	int		i;
-
-	if (!src)
-		return (NULL);
-	dest = malloc(n + 1);
-	if (dest == NULL)
-		return (NULL);
-	i = 0;
-	while (i < n)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[n] = '\0';
-	return (dest);
-}
 
 static	int	countstring(char *str, char charset)
 {
@@ -63,34 +43,82 @@ static	void	free_result(char **result, int j)
 	free(result);
 }
 
-static	int	sp(char	**result, char *str, char charset, int j)
+static	char	*ftstrndup(const char *src, int n)
 {
-	int		start;
+	char	*dest;
 	int		i;
 
+	if (!src)
+		return (NULL);
+	dest = malloc(n + 1);
+	if (dest == NULL)
+		return (NULL);
 	i = 0;
-	start = 0;
-	if (result == NULL || str == NULL)
-		return (-1);
-	while (str[i])
+	while (i < n)
 	{
-		if ((str[i] != charset) && (i == 0 || str[i - 1] == charset))
-			start = i;
-		if (str[i] != charset && (str[i + 1] == '\0' || str[i + 1] == charset))
-		{
-			result[j] = ftstrndup(str + start, i - start + 1);
-			if (!result[j])
-			{
-				free_result(result, j);
-				return (0);
-			}
-			j++;
-		}
+		dest[i] = src[i];
 		i++;
 	}
-	result[j] = NULL;
-	return (1);
+	dest[n] = '\0';
+	return (dest);
 }
+
+static int sp(char **result, char *str, char charset, int j)
+{
+    int start = 0;
+    int i = 0;
+
+    if (result == NULL || str == NULL)
+        return -1;
+
+    while (str[i])
+    {
+     
+        if (str[i] == '"' || str[i] == '\'')
+        {
+            char quote = str[i];
+            i++; 
+            start = i; 
+            while (str[i] && str[i] != quote)
+                i++;
+            if (str[i] == quote)
+            {
+                result[j] = ftstrndup(str + start, i - start);
+                if (!result[j])
+                {
+                    free_result(result, j);
+                    return 0;
+                }
+                j++;
+            }
+
+            if (str[i] == quote)
+                i++;
+        }
+        else if (str[i] != charset)
+        {
+            start = i;
+            while (str[i] && str[i] != charset)
+                i++;
+            result[j] = ftstrndup(str + start, i - start);
+            if (!result[j])
+            {
+                free_result(result, j);
+                return 0;
+            }
+            j++;
+        }
+        else
+        {
+            // Move past the separator
+            i++;
+        }
+    }
+
+    result[j] = NULL;
+    return 1;
+}
+
 
 char	**ft_split(char *str, char charset)
 {

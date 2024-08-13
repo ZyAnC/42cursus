@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yzheng <yzheng@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 22:16:20 by yzheng            #+#    #+#             */
-/*   Updated: 2024/04/16 11:35:05 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/06 18:03:51 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <string.h>
+# include <stdarg.h>
 
 typedef struct s_list
 {
@@ -22,6 +24,21 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
+typedef struct PC
+{
+	char	**result;
+	char	*str;
+	char	charset;
+	int		*i;
+	int		*j;
+}	t_ParseContext;
+
+int		handle_normal(t_ParseContext *ctx);
+int		handle_quotes(t_ParseContext *ctx, char quote);
+int		process_string(t_ParseContext *ctx);
+int		ft_printf(int fd, const char *str, ...);
+int		ft_putchar(int c, int fd);
+int		ft_putstr(char *str, int fd);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);

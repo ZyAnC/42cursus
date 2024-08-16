@@ -55,25 +55,8 @@ int	valid_map_value(char c)
 
 void	check_playability(char **map, t_cmap cm)
 {
-		int		**visited;
-		int		i;
-		int		j;
-
-		visited = malloc(cm.i * sizeof(int *));
-		i = 0;
-		while(i < cm.i)
-		{
-			visited[i] = ft_calloc(cm.j, 0);
-			if (!visited[i])
-			{
-				j = 0;
-				while (j < i)
-					free(visited[j++]);
-				free(visited);
-				error_message(5);
-			}
-		}
-		fill_flood(map, visited, cm);
+		
+		fill_flood(map, &cm);
 		for(int i = 0;i<cm.i;i++)
 		{
 			ft_printf("%s\n",map[i]);

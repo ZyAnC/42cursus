@@ -1,7 +1,7 @@
 NAME = so_long
 SRCS = so_long.c parsingmap.c parsingmap_utils.c map_algorithm.c
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I ./src/libft -I ./src/printf -I ./src/get_next_line
+CFLAGS = -Wall -Wextra -Werror  -fPIC -I ./src/libft -I ./src/printf -I ./src/get_next_line
 OFILES = ${SRCS:.c=.o}
 LIBFT = ./src/libft
 PRINTF = ./src/printf

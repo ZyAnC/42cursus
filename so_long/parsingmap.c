@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:03:03 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/15 12:22:55 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/19 20:28:59 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**init_map(int rows, int cols, char *filename)
 	im.map = init_array(rows, cols);
 	im.fd = open(filename, O_RDONLY);
 	if (im.fd == -1)
-		ft_freemap(im.map, rows, 4);
+		ft_freemap(im.map, rows, 1, 4);
 	im.i = 0;
 	while (1)
 	{
@@ -66,7 +66,6 @@ char	**init_map(int rows, int cols, char *filename)
 		error_message(5);
 	return (im.map);
 }
-
 
 void	check_map(char **map, int rows, int cols)
 {
@@ -94,7 +93,7 @@ void	check_map(char **map, int rows, int cols)
 			cm.j++;
 		}
 	}
-	count_epcw(map,cm);
+	count_epcw(map, cm);
 }
 
 void	mapsize(char *filename)
@@ -109,7 +108,7 @@ void	mapsize(char *filename)
 	if (fd == -1)
 		error_message(4);
 	tmp = get_next_line(fd);
-	if(!tmp)
+	if (!tmp)
 		error_message(5);
 	cols = ft_strlen(tmp) - 1;
 	rows = 0;

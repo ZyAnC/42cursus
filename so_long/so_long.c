@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:13:28 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/15 11:48:05 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/19 20:28:06 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	error_message(int i)
 	exit(1);
 }
 
-void	map_error(int	i)
+void	map_error(int i)
 {
 	if (i == 7)
 		ft_printf("Invalid map value or the map is not rectangular");
@@ -45,9 +45,9 @@ void	map_error(int	i)
 		ft_printf("Can't get all treasure");
 	else if (i == 13)
 		ft_printf("Can't reach exit");
-
 	exit(1);
 }
+
 void	checkmapname(char *filename)
 {
 	char	*result;

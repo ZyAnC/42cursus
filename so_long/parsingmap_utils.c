@@ -57,13 +57,12 @@ void	check_playability(char **map, t_cmap cm)
 {
 		
 		fill_flood(map, &cm);
-		for(int i = 0;i<cm.i;i++)
-		{
-			ft_printf("%s\n",map[i]);
-		}
-		ft_printf("%d",cm.treasure);
-}
+		if (cm.treasure != cm.co)
+			ft_freemap(map, cm.i, 12);
+		if (cm.exit != cm.ex)
+			ft_freemap(map, cm.i, 13);
 
+}
 void	count_epcw(char **map, t_cmap cm)
 {
 	if (cm.ex != 1)

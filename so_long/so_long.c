@@ -41,6 +41,11 @@ void	map_error(int	i)
 		ft_printf("Need Treasure");
 	else if (i == 11)
 		ft_printf("Bad Wall");
+	else if (i == 12)
+		ft_printf("Can't get all treasure");
+	else if (i == 13)
+		ft_printf("Can't reach exit");
+
 	exit(1);
 }
 void	checkmapname(char *filename)

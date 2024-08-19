@@ -37,6 +37,7 @@ typedef struct checkmap
 	int	x;
 	int	y;
 	int treasure;
+	int	exit;
 }		t_cmap;	
 
 void	mapsize(char *filename);
@@ -46,5 +47,5 @@ int		valid_map_value(char c);
 void	ft_freemap(char **map, int rows, int errn);
 void	count_epcw(char **map, t_cmap cm);
 void	fill_flood(char **map, t_cmap *cm);
-void	fill(char **map, int **visited, t_cmap cm);
+void	fill(char **map, int **visited, t_cmap *cm);
 #endif

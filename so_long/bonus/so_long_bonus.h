@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include "./MLX42/include/MLX42/MLX42.h"
+# include "../MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>
-# include "./src/printf/printf.h"
-# include "./src/libft/libft.h"
-# include "./src/get_next_line/get_next_line.h"
+# include "../src/printf/printf.h"
+# include "../src/libft/libft.h"
+# include "../src/get_next_line/get_next_line.h"
 
 typedef struct s_point
 {
@@ -34,14 +34,17 @@ typedef struct s_game
 	t_point			curr;
 	t_point			next;
 	t_point			exit;
+	t_point			*enemy;
 	int				width;
 	int				height;
 	char			**map;
 	int				co;
 	int				heart;
 	int				ex;
+	int				em;
 	int				movements;
 	int				prepose;
+
 }	t_game;
 
 typedef struct initmap
@@ -60,6 +63,7 @@ typedef struct checkmap
 	int	ex;
 	int	po;
 	int	co;
+	int	em;
 	int	x;
 	int	y;
 	int	treasure;
@@ -83,4 +87,5 @@ void	delete_game(t_game *g);
 void	closehook(void *param);
 void	quit(t_game *g);
 void	key_hook(mlx_key_data_t keydata, void *param);
+void	loophook(void *param);
 #endif

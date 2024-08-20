@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   delete.c                                           :+:      :+:    :+:   */
+/*   delete_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 19:41:16 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 14:49:02 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/20 12:41:39 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	delete_image(t_game *g)
 {
 	int	i;
 
 	i = 0;
-	while (i < 13)
+	while (i < 9)
 		mlx_delete_image(g->mlx, g->img[i++]);
 	free(g->img);
 }

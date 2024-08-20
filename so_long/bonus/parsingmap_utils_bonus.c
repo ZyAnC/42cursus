@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsingmap_utils.c                                 :+:      :+:    :+:   */
+/*   parsingmap_utils_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:29 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 15:00:14 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/20 15:00:21 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "./so_long_bonus.h"
 
 void	ft_freemap(char **map, int rows, int errtype, int errn)
 {
@@ -50,13 +50,12 @@ int	checkwall(char ** map, int cols, int rows)
 
 int	valid_map_value(char c)
 {
-	return (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P');
+	return (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P' || c == 'M');
 }
 
 void	check_playability(char **map, t_cmap cm)
 {
 	fill_flood(map, &cm);
-
 	if (cm.treasure != cm.co)
 		ft_freemap(map, cm.i, 1, 12);
 	if (cm.exit != cm.ex)

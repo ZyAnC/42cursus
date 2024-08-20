@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsingmap.c                                       :+:      :+:    :+:   */
+/*   parsingmap_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:03:03 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 13:20:20 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/20 16:04:13 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "./so_long_bonus.h"
 
 char	**init_array(int rows, int cols)
 {
@@ -75,6 +75,7 @@ void	check_map(char **map, int rows, int cols)
 	cm.i = -1;
 	cm.po = 0;
 	cm.co = 0;
+	cm.em = 0;
 	while (++cm.i < rows)
 	{
 		cm.j = 0;
@@ -86,6 +87,8 @@ void	check_map(char **map, int rows, int cols)
 				cm.x = cm.i;
 				cm.y = cm.j;
 			}
+			if (map[cm.i][cm.j] == 'M')
+				cm.em++;
 			if (map[cm.i][cm.j] == 'E')
 				cm.ex++;
 			if (map[cm.i][cm.j] == 'C')

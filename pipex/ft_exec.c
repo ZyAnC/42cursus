@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:30:30 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/12 15:31:05 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/19 21:13:22 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,6 @@ void	exec(char *cmd, char **env)
 		pp_free(shellcmd);
 		exit (127);
 	}
-	//execve(path, shellcmd, env);
+	execve(path, shellcmd, env);
 	ft_execve_failed(shellcmd, path);
 }

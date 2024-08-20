@@ -12,6 +12,9 @@
         "printf.h": "c",
         "stdio.h": "c",
         "mlx42.h": "c",
-        "so_long.h": "c"
+        "so_long.h": "c",
+        "fcntl.h": "c",
+        "so_long_bonus.h": "c",
+        "*.gitattributes": "c"
     }
 }

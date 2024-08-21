@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 18:03:29 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 15:00:14 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/21 12:53:29 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_freemap(char **map, int rows, int errtype, int errn)
 		map_error(errn);
 }
 
-int	checkwall(char ** map, int cols, int rows)
+int	checkwall(char **map, int cols, int rows)
 {
 	int	i;
 
@@ -56,7 +56,6 @@ int	valid_map_value(char c)
 void	check_playability(char **map, t_cmap cm)
 {
 	fill_flood(map, &cm);
-
 	if (cm.treasure != cm.co)
 		ft_freemap(map, cm.i, 1, 12);
 	if (cm.exit != cm.ex)

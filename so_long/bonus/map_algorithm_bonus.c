@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 11:06:25 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 14:46:18 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/21 14:57:00 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	fill(char **map, int **visited, t_cmap *cm)
 	int	original_x;
 	int	original_y;
 
-	if (cm->x < 0 || cm->x >= cm->i || cm->y < 0 || cm->y >= cm->j 
+	if (cm->x < 0 || cm->x >= cm->i || cm->y < 0 || cm->y >= cm->j
 		|| map[cm->x][cm->y] == '1' || visited[cm->x][cm->y])
 		return ;
 	if (map[cm->x][cm->y] == 'C')
@@ -67,4 +67,10 @@ void	fill_flood(char **map, t_cmap *cm)
 	while (i < cm->i)
 		free(visited[i++]);
 	free(visited);
+}
+
+void	add_image(t_game *g, mlx_image_t *img, int x, int y)
+{	
+	if (mlx_image_to_window(g->mlx, img, y * 64, x * 64) < 0)
+		game_error(g, "Failed to add img to windows");
 }

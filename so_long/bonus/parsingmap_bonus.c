@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:03:03 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 16:04:13 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/21 12:45:39 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ char	**init_map(int rows, int cols, char *filename)
 	return (im.map);
 }
 
+static void	stupidnorminette(t_cmap *cm)
+{
+	cm->po++;
+	cm->x = cm->i;
+	cm->y = cm->j;
+}	
+
 void	check_map(char **map, int rows, int cols)
 {
 	t_cmap	cm;
@@ -82,11 +89,7 @@ void	check_map(char **map, int rows, int cols)
 		while (cm.j < cols)
 		{
 			if (map[cm.i][cm.j] == 'P')
-			{
-				cm.po++;
-				cm.x = cm.i;
-				cm.y = cm.j;
-			}
+				stupidnorminette(&cm);
 			if (map[cm.i][cm.j] == 'M')
 				cm.em++;
 			if (map[cm.i][cm.j] == 'E')

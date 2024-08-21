@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   key_hook_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/19 20:04:07 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/21 14:50:09 by yzheng           ###   ########.fr       */
+/*   Created: 2024/08/21 12:17:10 by yzheng            #+#    #+#             */
+/*   Updated: 2024/08/21 12:38:49 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./so_long.h"
+#include "./so_long_bonus.h"
 
 static void	change_co(t_game *g)
 {
@@ -72,28 +72,32 @@ static void	move(int i, t_game *g)
 		g->map[g->next.x][g->next.y] = '0';
 		change_co(g);
 	}
+	if (g->map[g->next.x][g->next.y] == 'M')
+		lose(g);
 	if (g->map[g->next.x][g->next.y] == 'E' && g->ex == 1)
-	{
-		ft_printf("GG!");
-		quit(g);
-	}
+		win(g);
 	if (g->map[g->curr.x][g->curr.y] != 'E')
 		g->map[g->curr.x][g->curr.y] = '0';
 	if (g->map[g->next.x][g->next.y] != 'E')
 		g->map[g->next.x][g->next.y] = 'P';
-	ft_printf("Movements: %u, hearts: %u\n", ++g->movements, g->heart);
+	step(g);
+	heart(g);
 	posture(i, g);
 	g->curr.x = g->next.x;
 	g->curr.y = g->next.y;
 }
 
-void	closehook(void *param)
+static void	gomove(int i, t_game *g)
 {
-	t_game	*g;
-
-	g = (t_game *)param;
-	delete_game(g);
-	exit(EXIT_SUCCESS);
+	if (i == 7)
+		g->next = (t_point){g->curr.x, g->curr.y - 1};
+	else if (i == 8)
+		g->next = (t_point){g->curr.x, g->curr.y + 1};
+	else if (i == 6)
+		g->next = (t_point){g->curr.x - 1, g->curr.y};
+	else if (i == 4)
+		g->next = (t_point){g->curr.x + 1, g->curr.y};
+	move(i, g);
 }
 
 void	key_hook(mlx_key_data_t keydata, void *param)
@@ -103,24 +107,14 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	g = (t_game *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		quit(g);
+	if (g->status == 0 && keydata.action == MLX_PRESS)
+		quit(g);
 	else if (keydata.key == MLX_KEY_A && keydata.action == MLX_PRESS)
-	{
-		g->next = (t_point){g->curr.x, g->curr.y - 1};
-		move(7, g);
-	}
+		gomove(7, g);
 	else if (keydata.key == MLX_KEY_D && keydata.action == MLX_PRESS)
-	{
-		g->next = (t_point){g->curr.x, g->curr.y + 1};
-		move(8, g);
-	}
+		gomove(8, g);
 	else if (keydata.key == MLX_KEY_W && keydata.action == MLX_PRESS)
-	{
-		g->next = (t_point){g->curr.x - 1, g->curr.y};
-		move(6, g);
-	}
+		gomove(6, g);
 	else if (keydata.key == MLX_KEY_S && keydata.action == MLX_PRESS)
-	{
-		g->next = (t_point){g->curr.x + 1, g->curr.y};
-		move(4, g);
-	}
+		gomove(4, g);
 }

@@ -13,8 +13,8 @@ LIBS := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm \
 
 SRCS := so_long.c parsingmap.c parsingmap_utils.c map_algorithm.c initgame.c initgame_util.c delete.c hook.c \
 	$(shell find ./src -iname "*.c")
-SRCSB := ./bonus/so_long_bonus.c ./bonus/parsingmap_bonus.c ./bonus/parsingmap_utils_bonus.c \
-	./bonus/map_algorithm_bonus.c ./bonus/initgame_bonus.c ./bonus/initgame_util_bonus.c ./bonus/delete_bonus.c ./bonus/hook_bonus.c \
+SRCSB := ./bonus/so_long_bonus.c ./bonus/parsingmap_bonus.c ./bonus/parsingmap_utils_bonus.c ./bonus/posehook_bonus.c  ./bonus/spirit_hook_bonus.c\
+	./bonus/hook_utils_bonus.c ./bonus/key_hook_bonus.c ./bonus/map_algorithm_bonus.c ./bonus/initgame_bonus.c ./bonus/initgame_util_bonus.c ./bonus/delete_bonus.c ./bonus/hook_bonus.c \
 
 OBJS := ${SRCS:.c=.o}
 OBJSB := ${SRCSB:.c=.o}
@@ -54,7 +54,7 @@ $(NAMEBONUS): $(OBJSB)
 clean:
 	@rm -rf $(OBJS) $(OBJSB)
 	@rm -rf $(LIBMLX)/build
-	${MAKE} -C ${LIBFT} clean
+	${MAKE} -C ${LIBFT} fclean
 	${MAKE} -C ${PRINTF} clean
 	${MAKE} -C ${GETNEXTLINE} clean
 

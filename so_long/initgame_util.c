@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:15:42 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 16:16:38 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/21 14:52:15 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,7 @@ static void	fill_dynamic_items(t_game *g)
 		j = 0;
 		while (j < (g->width / 64))
 		{
-			if (g->map[i][j] == 'E')
-			{
-				add_image(g, g->img[3], i, j);
-				g->exit.x = i;
-				g->exit.y = j;
-			}
-			else if (g->map[i][j] == 'P')
+			if (g->map[i][j] == 'P')
 			{
 				g->curr.x = i;
 				g->curr.y = j;
@@ -75,8 +69,8 @@ void	fill_item(t_game *g)
 	i = 0;
 	while (i < (g->height / 64))
 	{
-		j = 0;
-		while (j < (g->width / 64))
+		j = -1;
+		while (++j < (g->width / 64))
 		{
 			if (g->map[i][j] == '1')
 				add_image(g, g->img[0], i, j);
@@ -84,7 +78,12 @@ void	fill_item(t_game *g)
 				add_image(g, g->img[1], i, j);
 			else if (g->map[i][j] == 'C')
 				add_image(g, g->img[2], i, j);
-			j++;
+			if (g->map[i][j] == 'E')
+			{
+				add_image(g, g->img[3], i, j);
+				g->exit.x = i;
+				g->exit.y = j;
+			}
 		}
 		i++;
 	}

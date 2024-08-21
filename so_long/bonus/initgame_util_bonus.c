@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/19 13:15:42 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 16:21:21 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/21 14:56:49 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,12 @@
 
 #include "./so_long_bonus.h"
 
-void	add_image(t_game *g, mlx_image_t *img, int x, int y)
-{	
-	if (mlx_image_to_window(g->mlx, img, y * 64, x * 64) < 0)
-		game_error(g, "Failed to add img to windows");
-}
-
 void	fill_background(t_game *g)
 {
-	int	i;
-	int	j;
-	t_point *p;
-	
+	int		i;
+	int		j;
+	t_point	*p;
+
 	i = 0;
 	while (i < g->height / 64)
 	{
@@ -51,13 +45,7 @@ static void	fill_dynamic_items(t_game *g)
 		j = 0;
 		while (j < (g->width / 64))
 		{
-			if (g->map[i][j] == 'E')
-			{
-				add_image(g, g->img[3], i, j);
-				g->exit.x = i;
-				g->exit.y = j;
-			}
-			else if (g->map[i][j] == 'P')
+			if (g->map[i][j] == 'P')
 			{
 				g->curr.x = i;
 				g->curr.y = j;
@@ -75,39 +63,37 @@ static void	save_enemy(int k, t_game *g, int x, int y)
 	k = 0;
 	g->enemy[k].x = x;
 	g->enemy[k].y = y;
-	
 }
+
+static void	stupidnorminnette(t_game *g, int i, int j)
+{
+	add_image(g, g->img[3], i, j);
+	g->exit.x = i;
+	g->exit.y = j;
+}
+
 void	fill_item(t_game *g)
 {
 	int	i;
 	int	j;
 	int	k;
-	
+
 	k = 0;
-	i = 0;
-	while (i < (g->height / 64))
+	i = -1;
+	while (++i < (g->height / 64))
 	{
-		j = 0;
-		while (j < (g->width / 64))
+		j = -1;
+		while (++j < (g->width / 64))
 		{
 			if (g->map[i][j] == '1')
 				add_image(g, g->img[0], i, j);
-			else if (g->map[i][j] == '0')
-				add_image(g, g->img[1], i, j);
 			else if (g->map[i][j] == 'M')
 				save_enemy(k, g, i, j);
 			else if (g->map[i][j] == 'C')
 				add_image(g, g->img[2], i, j);
-			j++;
+			else if (g->map[i][j] == 'E')
+				stupidnorminnette(g, i, j);
 		}
-		i++;
 	}
 	fill_dynamic_items(g);
-}
-
-void	game_error(t_game *g, char *s)
-{
-	ft_printf("%s", s);
-	delete_game(g);
-	exit(1);
 }

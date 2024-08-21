@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long_bonus.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 10:14:04 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/20 09:31:19 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/21 12:40:56 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+typedef struct s_sprite
+{
+	mlx_image_t	*img;
+	uint32_t	rows;
+	uint32_t	cols;
+}	t_sprite;
+
 typedef struct s_game
 {
 	mlx_t			*mlx;
@@ -44,7 +51,13 @@ typedef struct s_game
 	int				em;
 	int				movements;
 	int				prepose;
-
+	int				status;
+	t_sprite		*spr_h;
+	t_sprite		*spr_e;
+	t_sprite		*spr_l;
+	t_sprite		*spr_u;
+	t_sprite		*spr_d;
+	t_sprite		*spr_r;
 }	t_game;
 
 typedef struct initmap
@@ -87,5 +100,18 @@ void	delete_game(t_game *g);
 void	closehook(void *param);
 void	quit(t_game *g);
 void	key_hook(mlx_key_data_t keydata, void *param);
+void	spenemyhook(t_game *g, double time);
+void	hearthook(t_game *g, double time);
+void	step(t_game *g);
+void	heart(t_game *g);
+void	key_hook(mlx_key_data_t keydata, void *param);
 void	loophook(void *param);
+void	lefthook(t_game *g, double time);
+void	righthook(t_game *g, double time);
+void	uphook(t_game *g, double time);
+void	downhook(t_game *g, double time);
+void	put_pixel(mlx_image_t *img, mlx_image_t *spr, uint32_t x, uint32_t y);
+void	win(t_game *g);
+void	lose(t_game *g);
+t_point	validmove(int x, int y);
 #endif

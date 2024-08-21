@@ -6,7 +6,7 @@
 /*   By: yzheng <yzheng@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 08:17:24 by yzheng            #+#    #+#             */
-/*   Updated: 2024/08/19 21:20:40 by yzheng           ###   ########.fr       */
+/*   Updated: 2024/08/21 15:30:20 by yzheng           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	close_exit(int model, t_pipex *px)
 	if(model != 4)
 		exit(1);
 }	
-int	op_file(char *filename, int mode,t_pipex *px)
+int	op_file(char *filename, int mode, t_pipex *px)
 {
 	int	fd;
 
